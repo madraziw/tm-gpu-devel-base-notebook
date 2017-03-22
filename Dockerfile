@@ -4,6 +4,10 @@ FROM madraziw/tm-gpu-base-notebook
 
 LABEL maintainer "NVIDIA CORPORATION <cudatools@nvidia.com>"
 
+USER root
+
+ENV NB_USER jovyan
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-core-$CUDA_PKG_VERSION \
         cuda-misc-headers-$CUDA_PKG_VERSION \
@@ -22,3 +26,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
+
+USER $NB_USER
